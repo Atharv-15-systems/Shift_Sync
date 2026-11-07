@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useAppStore, Handover } from '../store/useAppStore.ts';
+import { VoiceDebriefPlayer } from './VoiceDebriefPlayer.tsx';
+import { playSuccessChime, playHapticClick } from '../lib/audioEffects.ts';
 import { 
   CheckCircle2, 
   Clock, 
@@ -67,6 +69,7 @@ export const HandoverView: React.FC = () => {
     if (!res.success) {
       setActionError(res.error || 'Failed to acknowledge');
     } else {
+      playSuccessChime();
       setActionSuccess('Handover successfully acknowledged.');
     }
   };
@@ -171,6 +174,14 @@ export const HandoverView: React.FC = () => {
             <span>{actionSuccess}</span>
           </div>
         )}
+
+        {/* Voice Debrief Audio Player */}
+        <div className="mt-4">
+          <VoiceDebriefPlayer 
+            authorName={handover.author_name} 
+            summaryText={handover.summary || 'Shift handover briefing for incoming staff.'} 
+          />
+        </div>
 
         {/* Risk Intelligence Banner (Offline Rule-Based) */}
         {handover.risks && handover.risks.length > 0 && (
