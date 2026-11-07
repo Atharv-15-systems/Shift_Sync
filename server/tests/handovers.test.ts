@@ -97,3 +97,4 @@ describe('Handover Business Logic & Shift Closure Gates', () => {
     expect(updated.resolved).toBe(1);
   });
 });
+

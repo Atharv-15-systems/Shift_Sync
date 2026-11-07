@@ -52,3 +52,4 @@
 - [ ] Multi-user real-time verification
 - [ ] 1-click Hospital Ward Demo & 60-second judge walkthrough
 - [ ] Comprehensive README & Git hygiene check
+

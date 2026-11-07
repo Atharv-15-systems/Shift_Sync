@@ -10,3 +10,4 @@ ShiftSync is a production-quality, competition-ready workplace shift handover an
 - **Real-Time Integration**: Isolated strictly in `client/src/lib/nexconn.ts` and `server/src/services/nexconn.ts`.
 - **Design System**: Apple Liquid Glass (lensing, translucency, backdrop blur, dark/light modes, customizable glass parameters).
 - **Security**: App Secret never exposed to frontend; SQLite transactions for handover submission, acknowledgement, and carry-over.
+

@@ -176,3 +176,4 @@ npm test
 
 ## 📄 License
 MIT © ShiftSync Contributors. Developed for the Nexconn Build Challenge.
+

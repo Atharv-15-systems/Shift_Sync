@@ -57,3 +57,4 @@ channelsRouter.get('/:id', (req: Request, res: Response) => {
 
   res.json({ channel: { ...channel, members } });
 });
+

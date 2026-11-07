@@ -352,3 +352,4 @@ handoversRouter.post('/items/:id/resolve', (req: Request, res: Response) => {
 
   res.json({ success: true, resolved: newResolvedState === 1 });
 });
+

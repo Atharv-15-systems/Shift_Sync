@@ -55,3 +55,4 @@ preferencesRouter.put('/:userId', (req: Request, res: Response) => {
   const updated = db.prepare('SELECT * FROM preferences WHERE user_id = ?').get(userId);
   res.json({ success: true, preferences: updated });
 });
+

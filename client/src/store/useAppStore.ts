@@ -433,3 +433,4 @@ export function applyThemeSettings(prefs: UserPreferences) {
     root.style.setProperty('--primary-accent', prefs.custom_accent);
   }
 }
+
