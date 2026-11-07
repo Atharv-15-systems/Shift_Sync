@@ -9,6 +9,7 @@ import { authRouter } from './routes/auth.js';
 import { channelsRouter } from './routes/channels.js';
 import { handoversRouter } from './routes/handovers.js';
 import { preferencesRouter } from './routes/preferences.js';
+import { createScenariosRouter } from './routes/scenarios.js';
 
 export function createApp() {
   const app = express();
@@ -35,6 +36,7 @@ export function createApp() {
   app.use('/api/channels', channelsRouter);
   app.use('/api/handovers', handoversRouter);
   app.use('/api/preferences', preferencesRouter);
+  app.use('/api/scenarios', createScenariosRouter(db));
 
   // Global Error Handler
   app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
