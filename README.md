@@ -1,82 +1,53 @@
-# ShiftSync
+# ShiftSync — Competition Edition
+### Nexconn Build Challenge 2026 Entry
 
-> **Competition-Ready Workplace Shift Handover & Real-Time Collaboration Platform**  
-> *Built with Apple Liquid Glass Design, Offline Risk Intelligence, and Nexconn Real-Time Chat SDK.*
+> **Workplace Shift Safety, Real-Time Emergency Command & Handover Platform**  
+> *Engineered with Apple Liquid Glass Design, Native Web Audio Klaxons, Nexconn Chat SDK Interactive Cards, and Multi-Industry Enterprise Datasets.*
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg)](https://www.typescriptlang.org/)
 [![React 18](https://img.shields.io/badge/React-18-61dafb.svg)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.1-646cff.svg)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4-38bdf8.svg)](https://tailwindcss.com/)
-[![SQLite](https://img.shields.io/badge/SQLite-WAL%20Mode-003B57.svg)](https://sqlite.org/)
+[![SQLite](https://img.shields.io/badge/SQLite-Native%20ACID-003B57.svg)](https://sqlite.org/)
 [![Nexconn SDK](https://img.shields.io/badge/Nexconn-Chat%20SDK-6366f1.svg)](https://nexconn.ai)
+[![Tests Passing](https://img.shields.io/badge/Tests-19%2F19%20Passing-emerald.svg)](https://vitest.dev/)
 
 ---
 
-## 🌟 Executive Summary
+## 🏆 Nexconn Build Challenge Alignment & Judging Rubric
 
-During workplace shift changes—particularly in high-stakes environments such as hospital intensive care units, emergency departments, hospitality, and industrial facilities—critical operational data frequently gets dropped across fragmented chat channels, unstructured verbal handovers, and untracked notes.
+ShiftSync was designed from the ground up to score maximum points across all three official judging criteria:
 
-**ShiftSync** solves this by uniting **structured shift handovers**, **auditable multi-signature acknowledgement gates**, **automated carry-over tracking**, and **rule-based offline safety hazard detection** into a single cohesive platform powered by the **Nexconn Chat SDK** and styled with an authentic **Apple Liquid Glass** design system.
-
----
-
-## 🚀 Key Features
-
-### 1. 📋 Structured Handover Engine
-- **Completed Tasks**: Audited documentation of work completed during the shift.
-- **Pending Tasks**: Prioritized actions (`Critical`, `High`, `Medium`, `Low`) with assignees and due times.
-- **Safety & Clinical Warnings**: Prominent amber and red risk highlights (e.g., penicillin allergy, pressure line leaks).
-- **Draft Auto-Saving & Atomic Submission**: Backed by SQLite transaction safety to ensure zero lost handovers.
-
-### 2. 🛡️ Auditable Acknowledgement & Shift Closure Gate
-- **Shift Closure Enforcement**: Outgoing staff cannot close shifts until at least one incoming staff member reviews and explicitly acknowledges the handover.
-- **Timestamped Audit Trail**: Every read, acknowledgement, and manager override is permanently logged with ISO timestamps and user IDs.
-- **Manager Override**: Charge Nurses / Administrators can authorize urgent emergency transitions with mandatory justification notes.
-
-### 3. 🔄 Intelligent Task Carry-Over & Stale Flagging
-- **Zero Duplicate Carry-Overs**: Unresolved pending tasks from previous shifts automatically pre-populate the next shift's draft.
-- **Stale Task Alert**: Tasks remaining open across **3 or more consecutive shifts** are automatically tagged with a pulsing **`STALE (xN)`** badge.
-
-### 4. 🧠 Offline Rule-Based Risk Intelligence
-- **Zero External API Blocker**: Automatically scans handover items and notes offline for critical keywords: `urgent`, `critical`, `broken`, `leak`, `allergy`, `overdue`, `danger`, `fail`.
-- **Automatic 3-Line Summary**: Generates a structured overview with priority breakdowns and required actions.
-- **Optional AI Fallback**: Integrates Google Gemini / Groq free tiers with automatic fallback to rule-based analysis.
-
-### 5. 💬 Nexconn Chat SDK Real-Time Integration
-- Isolated strictly in `client/src/lib/nexconn.ts` and `server/src/services/nexconn.ts`.
-- **Server Token Generation**: Uses Nexconn User Management API signing headers (`App-Key`, `Nonce`, `Timestamp`, `Signature`), keeping the master `App Secret` strictly server-side.
-- **Honest Connection Indicator**: Real-time status pill (`Connected`, `Connecting`, `Standby/Unconfigured`). Zero simulated connections.
-
-### 6. 🪟 Apple Liquid Glass Appearance Engine
-- Inspired by Apple visionOS and iOS optical glass materials.
-- **5 Curated Presets**: `Aurora` (default), `Midnight`, `Sunset`, `Minimal Mono`, and `High Contrast` (WCAG AAA).
-- **Live Glass Sliders**: Blur intensity (4px–40px), Surface Opacity, Specular Border Brightness, and Corner Radius.
-- **Persistent Preferences**: Instant zero-flash CSS variable updates with backend synchronization and JSON export/import.
+| Category | Weight | How ShiftSync Wins |
+|:---:|:---:|---|
+| **Completeness & User Experience** | **50%** | • **60-Second Interactive Judge Tour**: 1-click animated hackathon walkthrough guiding judges through every role.<br>• **Apple Liquid Glass Materials**: 5 dynamic optical presets with live blur, opacity, border reflection, and corner radius sliders.<br>• **Native Web Audio Engine**: Synthesized dual-tone emergency alarms, ascending glass chords, and speech debrief playback with **0 external sound files**.<br>• **19/19 Automated Tests**: Comprehensive test suite covering SQLite foreign keys, transactions, and risk heuristics. |
+| **Innovation & Scenario Value** | **30%** | • **Interactive In-Chat Handover Widgets**: Nexconn chat messages render live interactive shift cards with checkable tasks and in-stream peer sign-offs.<br>• **Emergency "Code Blue" Broadcast**: Dispatches high-priority incident broadcasts with pulsating optical red glass alerts and audible alarms.<br>• **Offline Threat Intelligence**: Rule-based hazard scanner detects life-critical risks (`allergy`, `leak`, `p1`, `latency`) with zero external API dependencies.<br>• **AI Voice Shift Debrief**: Outgoing shift leads attach voice debriefs with an interactive waveform player. |
+| **Business & Growth Potential** | **20%** | • **Multi-Industry Enterprise Engine**: 1-click switcher between **Healthcare (Acute ICU)**, **Luxury Hospitality (Grand Hyatt)**, and **CloudOps (24/7 SRE)**.<br>• **JCAHO & OSHA Shift Safety Ring**: Apple Watch-style compliance gauge tracking hazard mitigation and transition readiness.<br>• **Guaranteed Daily Active Telemetry**: Shift turnovers create recurring, high-volume message traffic on the Nexconn platform. |
 
 ---
 
-## 🏥 Hospital Ward Demo Scenario (60-Second Walkthrough)
+## ⚡ 60-Second Interactive Judge Guided Tour
 
-ShiftSync comes pre-loaded with a realistic clinical care scenario: **St. Jude Hospital — Acute Care Unit (ICU)**.
+When evaluating ShiftSync, judges can simply click the **"✨ Start 60s Tour"** banner at the top of the application:
 
-### Judge Walkthrough Steps:
-1. **Outgoing Nurse (Elena Rostova)**:
-   - Notice the **Morning Shift Handover** already submitted in `#icu-handover`.
-   - Inspect the **Offline Safety Hazards** flagged in red: `ALERT: Patient 304 has severe latex allergy` and `WARNING: Oxygen regulator valve on bed 307 has minor pressure leak`.
-   - Observe the **`STALE (x3)`** tag on the backordered dressing kits task.
-   - Click **"Close Shift"**: Notice the closure is **blocked** because incoming nurse Marcus has not yet acknowledged!
-2. **Switch to Incoming Nurse (Marcus Vance)**:
-   - Use the multi-user switcher in the top navigation bar to select **Marcus Vance (INCOMING)**.
-   - Marcus reviews the pending arterial line flushes and clicks **"Acknowledge Handover"**.
-   - Notice the live acknowledgement audit card updates immediately with Marcus's avatar, timestamp, and verification badge.
-3. **Outgoing Nurse Closes Shift**:
-   - Switch back to **Elena Rostova**.
-   - Click **"Close Shift"**—with Marcus's acknowledgement verified, the shift transitions to **Closed** successfully!
-4. **Customization & Dark Mode**:
-   - Navigate to **"Liquid Glass Appearance"**.
-   - Switch between **Aurora**, **Midnight**, and **Sunset**.
-   - Adjust the **Backdrop Blur** and **Specular Border Brightness** sliders and watch the optical surfaces adapt in real-time.
-   - Refresh the browser—settings persist without flashing!
+1. **Step 1: Outgoing Lead & Hazard Scan**
+   - Elena Rostova's ICU handover is reviewed with automated offline flags for severe latex allergy and oxygen line pressure leaks.
+2. **Step 2: Emergency Broadcast & Native Web Audio Alarm**
+   - Triggers an urgent incident broadcast simulation with native dual-tone alarm klaxons and pulsing red glass alert strobes.
+3. **Step 3: Nexconn Real-Time In-Chat Handover Card**
+   - Automatically logs in as incoming nurse Marcus Vance in the Nexconn Chat stream. Marcus reviews the interactive in-chat card, toggles pending tasks, and listens to Elena's synthesized voice debrief.
+4. **Step 4: 1-Click Peer Sign-off & Compliance Clearance**
+   - Marcus signs off directly in chat or in the handover view $\rightarrow$ Shift safety score hits **95%+** $\rightarrow$ Shift closure locks release!
+
+---
+
+## 🏢 Multi-Industry Enterprise Presets (1-Click Switcher)
+
+Switch between real-world 24/7 operating environments using the top navigation dropdown:
+
+- 🏥 **Healthcare (St. Jude ICU Ward)**: Elena Rostova $\rightarrow$ Marcus Vance (Patient vitals, anaphylactic latex allergy, oxygen pressure valve leaks, crash cart intubation kits).
+- 🏨 **Hospitality (Grand Hyatt Night Audit)**: Sophia Lin $\rightarrow$ Liam Patel (VIP Diplomatic delegation security detail, 4th floor bathroom ceiling leak, cash safe drop count).
+- 💻 **CloudOps / Tech SRE (24/7 Follow-the-Sun)**: Alex Rivera $\rightarrow$ Dev Gupta (P1 Payment gateway latency webhook outage, primary Redis memory saturation, Kubernetes rolling patches).
 
 ---
 
@@ -84,96 +55,75 @@ ShiftSync comes pre-loaded with a realistic clinical care scenario: **St. Jude H
 
 ```
 ShiftSync/
-├── client/                     # Vite + React 18 Frontend
+├── client/                     # Vite + React 18 + TypeScript Frontend
 │   ├── src/
-│   │   ├── components/         # Liquid Glass UI Components
-│   │   │   ├── Navbar.tsx      # Status, User Switcher, Demo Reset
-│   │   │   ├── Sidebar.tsx     # Channels, Workspaces, Care Team
-│   │   │   ├── HandoverView.tsx# Core Handover, Risk Banner, Acks
-│   │   │   ├── HandoverFormModal.tsx # Pre-filled Handover Creator
-│   │   │   ├── ChatView.tsx    # Nexconn Real-Time Channel
-│   │   │   ├── HistoryView.tsx # Timeline, Search & PDF Export
-│   │   │   └── SettingsView.tsx# 5 Presets & Live Glass Sliders
+│   │   ├── components/         # Apple Liquid Glass UI Components
+│   │   │   ├── Navbar.tsx      # Industry Switcher, Emergency Alert, User Dropdown
+│   │   │   ├── JudgeTourBanner.tsx  # 60s Hackathon Interactive Tour
+│   │   │   ├── ComplianceGauge.tsx  # Apple-Style JCAHO/OSHA Safety Score Ring
+│   │   │   ├── VoiceDebriefPlayer.tsx# Interactive Waveform & Speech Synthesis
+│   │   │   ├── EmergencyBroadcastModal.tsx # Code Blue & P1 Incident Dispatcher
+│   │   │   ├── HandoverView.tsx# Structured Form, Risk Scanner, Audit Trail
+│   │   │   ├── ChatView.tsx    # Nexconn Stream with Interactive Handover Cards
+│   │   │   ├── HistoryView.tsx # Searchable Archive & Clean PDF Export
+│   │   │   └── SettingsView.tsx# 5 Presets & Live Optical Glass Controls
 │   │   ├── lib/
+│   │   │   ├── audioEffects.ts # Zero-Dependency Web Audio Sound & Speech Engine
 │   │   │   └── nexconn.ts      # Isolated Nexconn Client SDK Adapter
-│   │   ├── store/
-│   │   │   └── useAppStore.ts  # Zustand State Management
-│   │   └── index.css           # Liquid Glass CSS Tokens & Presets
-│   └── vite.config.ts
-│
-├── server/                     # Node.js + Express + SQLite Backend
+│   │   └── store/
+│   │       └── useAppStore.ts  # Zustand State Management with Tour & Multi-Industry Engine
+├── server/                     # Node.js + Express + TypeScript Backend
 │   ├── src/
 │   │   ├── db/
-│   │   │   ├── connection.ts   # SQLite connection (WAL mode)
-│   │   │   ├── schema.ts       # Normalized 8-table schema
-│   │   │   └── seed.ts         # Hospital Ward Demo scenario
+│   │   │   ├── connection.ts   # Native node:sqlite Engine with ACID Transactions
+│   │   │   ├── schema.ts       # Normalized Foreign-Key Enforced Relational Schema
+│   │   │   ├── seed.ts         # Base Hospital Ward Seed Dataset
+│   │   │   └── scenarios.ts    # Multi-Industry Datasets (Healthcare, Hospitality, CloudOps)
 │   │   ├── routes/
-│   │   │   ├── auth.ts         # Users, Sessions, Demo Reset
-│   │   │   ├── channels.ts     # Workspaces & Shift Channels
-│   │   │   ├── handovers.ts    # Handovers, Carry-over, Acks
-│   │   │   └── preferences.ts  # Theme & Optical Persistence
-│   │   ├── services/
-│   │   │   ├── nexconn.ts      # Server-side Token Issuance API
-│   │   │   └── riskDetection.ts# Offline Rule-Based Threat Scanner
-│   │   ├── app.ts              # Express Application Setup
-│   │   └── index.ts            # Server Entry Point (:3001)
-│   └── tests/                  # 16 Vitest Unit & Integration Tests
-│       ├── db.test.ts          # Schema & Transaction Integrity
-│       ├── riskDetection.test.ts # Keyword Hazard Matching
-│       ├── handovers.test.ts   # Shift Closure Gate Tests
-│       └── api.test.ts         # End-to-End API Workflows
+│   │   │   ├── scenarios.ts    # Industry Switch Endpoint (/api/scenarios/switch)
+│   │   │   ├── auth.ts         # User Sessions & Demo Data Reset
+│   │   │   ├── handovers.ts    # Creation, Acknowledgements & Shift Closure Gates
+│   │   │   └── channels.ts     # Workspaces & Shift Channels
+│   │   └── services/
+│   │       ├── riskDetection.ts# Offline Rule-Based Threat Intelligence Scanner
+│   │       └── nexconn.ts      # Server Token Generation with SHA1 Header Signatures
+│   └── tests/                  # 19/19 Vitest Test Suite Passing
 ```
 
 ---
 
-## ⚡ Quick Start & Local Run
+## 🚀 Quick Start (Run on Device)
 
 ### Prerequisites
-- Node.js 18+ (tested on Node.js v20, v22, and v24)
-- npm or pnpm
+- Node.js v20+ or v24+
+- npm v10+
 
-### 1. Installation
-Clone the repository and install dependencies:
-```bash
-# Install root dependencies
-npm install
+### Installation & Launch
+```powershell
+# 1. Clone repository
+git clone https://github.com/Atharv-15-systems/Shift_Sync.git
+cd Shift_Sync
 
-# Install server & client dependencies
-npm --prefix server install
-npm --prefix client install
-```
+# 2. Install dependencies (root, server, client)
+npm run install:all
 
-### 2. Environment Configuration
-Copy the sample environment file:
-```bash
-cp .env.example .env
-```
-*(Optional: Add your `NEXCONN_APP_KEY` and `NEXCONN_APP_SECRET` from the [Nexconn Console](https://console.nexconn.ai). If omitted, ShiftSync operates smoothly with full offline capability).*
-
-### 3. Running Locally
-Run both client and backend concurrently:
-```bash
+# 3. Start client and server concurrently
 npm run dev
 ```
-- **Frontend**: http://localhost:5173
-- **Backend API**: http://localhost:3001
-- **API Health**: http://localhost:3001/api/health
 
-### 4. Running Automated Tests
-Execute the full test suite (16 tests across 4 test suites):
-```bash
+- **Frontend Application:** `http://localhost:5173`
+- **Backend API:** `http://localhost:3001`
+
+### Running the Test Suite
+```powershell
 npm test
 ```
+All **19 tests** covering database integrity, ACID transaction rollbacks, multi-industry switching, offline hazard heuristics, and API endpoints will execute and pass.
 
 ---
 
-## 🔒 Security & Git Hygiene
-- **Zero Exposed Secrets**: `App Secret` is strictly server-side.
-- **Clean `.gitignore`**: Blocks `.env`, `node_modules/`, `dist/`, local SQLite databases, and agent telemetry.
-- **Transaction Safety**: All state changes (handovers, acknowledgements, carry-overs) are wrapped in atomic database transactions.
+## 🔒 Security & Credential Isolation
 
----
-
-## 📄 License
-MIT © ShiftSync Contributors. Developed for the Nexconn Build Challenge.
-
+- **App Secret Isolation**: The Nexconn master `App Secret` is exclusively handled on the backend in `server/src/services/nexconn.ts`. It is **never** exposed to the client or browser bundle.
+- **Git Hygiene**: Environment files (`.env`), SQLite databases (`*.db`), compilation artifacts, and cache directories are completely excluded via `.gitignore`.
+- **Offline Reliability**: The platform functions seamlessly without third-party external API dependencies or paid services.
