@@ -11,8 +11,7 @@ import {
   CheckCircle2, 
   Clock, 
   Check, 
-  ChevronRight,
-  Sparkles
+  ChevronRight
 } from 'lucide-react';
 
 export const ChatView: React.FC = () => {
@@ -125,7 +124,7 @@ export const ChatView: React.FC = () => {
               </div>
 
               <button
-                onClick={() => setActiveTab('handovers')}
+                onClick={() => setActiveTab('handover')}
                 className="text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
               >
                 <span>Full View</span>
@@ -151,7 +150,7 @@ export const ChatView: React.FC = () => {
                   {handover.items.filter(i => i.kind === 'pending').map(item => (
                     <div 
                       key={item.id}
-                      onClick={() => handleToggleItem(item.id, item.resolved)}
+                      onClick={() => handleToggleItem(item.id, Boolean(item.resolved))}
                       className={`p-2 rounded-xl text-xs flex items-center justify-between gap-2 cursor-pointer transition-all ${
                         item.resolved 
                           ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 line-through opacity-75' 

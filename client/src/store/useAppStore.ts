@@ -77,6 +77,17 @@ export interface UserPreferences {
   font_family: string;
 }
 
+export interface EmergencyAlert {
+  id: string;
+  title: string;
+  severity: 'critical' | 'code_blue' | 'evacuation' | 'security';
+  details: string;
+  senderName: string;
+  timestamp: string;
+}
+
+export type IndustryType = 'healthcare' | 'hospitality' | 'cloudops';
+
 interface AppState {
   currentUser: User | null;
   users: User[];
@@ -90,6 +101,10 @@ interface AppState {
   nexconnStatus: { status: NexconnConnectionStatus; detail: string };
   isLoading: boolean;
   activeTab: 'handover' | 'chat' | 'settings' | 'history';
+  activeEmergency: EmergencyAlert | null;
+  activeIndustry: IndustryType;
+  isTourActive: boolean;
+  tourStep: number;
 
   // Actions
   setActiveTab: (tab: 'handover' | 'chat' | 'settings' | 'history') => void;
@@ -100,7 +115,7 @@ interface AppState {
   acknowledgeHandover: (handoverId: string, note?: string) => Promise<{ success: boolean; error?: string }>;
   overrideHandover: (handoverId: string, reason: string) => Promise<{ success: boolean; error?: string }>;
   closeShift: (handoverId: string) => Promise<{ success: boolean; error?: string }>;
-  resolveItem: (itemId: string) => Promise<void>;
+  resolveItem: (itemId: string, resolved?: boolean) => Promise<void>;
   submitHandover: (data: {
     channelId: string;
     shiftType: 'Morning' | 'Evening' | 'Night';
@@ -110,6 +125,13 @@ interface AppState {
   sendChatMessage: (text: string) => Promise<void>;
   updatePreferences: (prefs: Partial<UserPreferences>) => Promise<void>;
   resetDemoData: () => Promise<void>;
+  switchIndustry: (industry: IndustryType) => Promise<void>;
+  dispatchEmergencyBroadcast: (title: string, severity: 'critical' | 'code_blue' | 'evacuation' | 'security', details: string) => Promise<void>;
+  dismissEmergency: () => void;
+  startJudgeTour: () => void;
+  nextTourStep: () => void;
+  prevTourStep: () => void;
+  endTour: () => void;
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
@@ -154,6 +176,10 @@ export const useAppStore = create<AppState>((set, get) => ({
   nexconnStatus: { status: 'disconnected', detail: '' },
   isLoading: false,
   activeTab: 'handover',
+  activeEmergency: null,
+  activeIndustry: 'healthcare',
+  isTourActive: false,
+  tourStep: 0,
 
   setActiveTab: (tab) => set({ activeTab: tab }),
   setActiveChannelId: (id) => set({ activeChannelId: id }),
@@ -407,6 +433,95 @@ export const useAppStore = create<AppState>((set, get) => ({
     } finally {
       set({ isLoading: false });
     }
+  },
+
+  switchIndustry: async (industry) => {
+    set({ isLoading: true, activeIndustry: industry });
+    try {
+      const res = await fetch('/api/scenarios/switch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ industry })
+      });
+      const data = await res.json();
+      if (data.success) {
+        await get().fetchInitialData();
+      }
+    } catch (err) {
+      console.error('[Switch Industry Error]:', err);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  dispatchEmergencyBroadcast: async (title, severity, details) => {
+    const user = get().currentUser;
+    const alert: EmergencyAlert = {
+      id: `alert-${Date.now()}`,
+      title,
+      severity,
+      details,
+      senderName: user?.name || 'Shift Lead',
+      timestamp: new Date().toISOString()
+    };
+
+    set({ activeEmergency: alert });
+
+    // Also send an urgent message into the active Nexconn channel
+    await get().sendChatMessage(`🚨 [${severity.toUpperCase()} EMERGENCY BROADCAST]: ${title} — ${details}`);
+  },
+
+  dismissEmergency: () => {
+    set({ activeEmergency: null });
+  },
+
+  startJudgeTour: () => {
+    set({ isTourActive: true, tourStep: 0, activeTab: 'handover' });
+    const users = get().users;
+    const elena = users.find(u => u.role === 'outgoing') || users[0];
+    if (elena) {
+      get().loginAsUser(elena.id);
+    }
+  },
+
+  nextTourStep: () => {
+    const next = get().tourStep + 1;
+    const users = get().users;
+
+    if (next === 1) {
+      // Step 1: Elena reviewing hazard scan
+      set({ tourStep: next, activeTab: 'handover' });
+    } else if (next === 2) {
+      // Step 2: Emergency Code Blue demonstration
+      set({ tourStep: next });
+      get().dispatchEmergencyBroadcast(
+        'Code Blue Simulation — Bed 4 Cardiac Arrest Team Activated',
+        'code_blue',
+        'Crash cart 2 deployed to Room 4. Resuscitation team en route. Clear south corridor.'
+      );
+    } else if (next === 3) {
+      // Step 3: Switch to Marcus in Chat view with in-chat card
+      const marcus = users.find(u => u.role === 'incoming') || users[1];
+      if (marcus) {
+        get().loginAsUser(marcus.id);
+      }
+      set({ tourStep: next, activeTab: 'chat' });
+    } else if (next === 4) {
+      // Step 4: Final compliance & shift lock clearance
+      set({ tourStep: next, activeTab: 'handover' });
+    } else {
+      get().endTour();
+    }
+  },
+
+  prevTourStep: () => {
+    const prev = Math.max(0, get().tourStep - 1);
+    set({ tourStep: prev });
+  },
+
+  endTour: () => {
+    set({ isTourActive: false, tourStep: 0 });
+    get().dismissEmergency();
   }
 }));
 

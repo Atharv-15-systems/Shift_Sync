@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAppStore, Handover } from '../store/useAppStore.ts';
 import { VoiceDebriefPlayer } from './VoiceDebriefPlayer.tsx';
+import { ComplianceGauge } from './ComplianceGauge.tsx';
 import { playSuccessChime, playHapticClick } from '../lib/audioEffects.ts';
 import { 
   CheckCircle2, 
@@ -219,6 +220,9 @@ export const HandoverView: React.FC = () => {
         )}
       </div>
 
+      {/* JCAHO / OSHA Shift Safety Compliance Gauge */}
+      <ComplianceGauge />
+
       {/* Main Grid: Pending (with Carry-overs) & Completed */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* Pending & Carried-Over Tasks */}
@@ -248,7 +252,10 @@ export const HandoverView: React.FC = () => {
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-2.5 flex-1">
                     <button
-                      onClick={() => resolveItem(item.id)}
+                      onClick={() => {
+                        playHapticClick();
+                        resolveItem(item.id);
+                      }}
                       className={`mt-0.5 w-4 h-4 rounded flex items-center justify-center transition-all ${
                         item.resolved === 1
                           ? 'bg-emerald-500 text-white'
